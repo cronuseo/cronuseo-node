@@ -1,0 +1,2251 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Cronuseo",
+    "description": "This is the cronuseo backend APIs.\n",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/thilinasenarath97/cronuseo/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "https://petstore.swagger.io/v2"
+    }
+  ],
+  "tags": [
+    {
+      "name": "organizations",
+      "description": "Organizations"
+    },
+    {
+      "name": "users",
+      "description": "Users"
+    },
+    {
+      "name": "roles",
+      "description": "Roles"
+    },
+    {
+      "name": "groups",
+      "description": "Groups"
+    },
+    {
+      "name": "resources",
+      "description": "Resources"
+    },
+    {
+      "name": "policies",
+      "description": "Policies"
+    },
+    {
+      "name": "check",
+      "description": "Check"
+    }
+  ],
+  "paths": {
+    "/organizations": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Get all organizations.",
+        "description": "This API fetch all organizations. <br>\n  <b>Permission required:</b> <br>\n      * orgs:read_all <br>\n",
+        "operationId": "getOrgs",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Add a new organization",
+        "description": "This API create new organization. <br>\n  <b>Permission required:</b> <br>\n      * orgs:create <br>\n",
+        "operationId": "addOrg",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Organization"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/organizations/{id}": {
+      "get": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Find organization by ID",
+        "description": "This API fetch organization by id. <br>\n  <b>Permission required:</b> <br>\n      * orgs:read <br>\n",
+        "operationId": "getOrgById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of organization to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationEntity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Deletes a organization",
+        "description": "This API delete organization by id. <br>\n  <b>Permission required:</b> <br>\n      * orgs:delete <br>\n",
+        "operationId": "deleteOrg",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Organization id to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        }
+      }
+    },
+    "/organizations/{id}/regenerate-key": {
+      "post": {
+        "tags": [
+          "organizations"
+        ],
+        "summary": "Regenerate organization API key",
+        "description": "This API regenerate api key of organization. <br>\n  <b>Permission required:</b> <br>\n      * orgs:update <br>\n",
+        "operationId": "regenerateOrgKey",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Organization id to regenerate key",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Organization not found"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/users:": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get all users.",
+        "description": "This API fetch all users. <br>\n  <b>Permission required:</b> <br>\n      * users:read_all <br>\n",
+        "operationId": "getUsers",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Add a new user",
+        "description": "This API create new user. <br>\n  <b>Permission required:</b> <br>\n      * users:create <br>\n",
+        "operationId": "addUser",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/User"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/users/{id}:": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Find user by ID",
+        "description": "This API fetch user by id. <br>\n  <b>Permission required:</b> <br>\n      * users:read <br>\n",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEntity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update a existing user",
+        "description": "This API update existing user. <br>\n  <b>Permission required:</b> <br>\n      * users:update <br>\n",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UserUpdate"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Deletes a user",
+        "description": "This API delete user by id. <br>\n  <b>Permission required:</b> <br>\n      * users:delete <br>\n",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Patch a existing user",
+        "description": "This API patch existing user groups and roles. <br>\n  <b>Permission required:</b> <br>\n      * users:update <br>\n",
+        "operationId": "patchUser",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UserPatch"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/roles:": {
+      "get": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Get all roles.",
+        "description": "This API fetch all roles. <br>\n  <b>Permission required:</b> <br>\n      * roles:read_all <br>\n",
+        "operationId": "getRoles",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Role"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Add a new role",
+        "description": "This API create new role. <br>\n  <b>Permission required:</b> <br>\n      * roles:create <br>\n",
+        "operationId": "addRole",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Role"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/roles/{id}:": {
+      "get": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Find role by ID",
+        "description": "This API fetch role by id. <br>\n  <b>Permission required:</b> <br>\n      * roles:read <br>\n",
+        "operationId": "getRoleById",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of role to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleEntity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Role not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Deletes a role",
+        "description": "This API delete role by id. <br>\n  <b>Permission required:</b> <br>\n      * roles:delete <br>\n",
+        "operationId": "deleteRole",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Role id to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Role not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "roles"
+        ],
+        "summary": "Patch a existing role",
+        "description": "This API patch existing role groups and users. <br>\n  <b>Permission required:</b> <br>\n      * roles:update <br>\n",
+        "operationId": "patchRole",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of role",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/RolePatch"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/groups:": {
+      "get": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "Get all groups.",
+        "description": "This API fetch all groups. <br>\n  <b>Permission required:</b> <br>\n      * groups:read_all <br>\n",
+        "operationId": "getGroups",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Group"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "Add a new group",
+        "description": "This API create new group. <br>\n  <b>Permission required:</b> <br>\n      * groups:create <br>\n",
+        "operationId": "addgroup",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Group"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/groups/{id}:": {
+      "get": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "Find group by ID",
+        "description": "This API fetch group by id. <br>\n  <b>Permission required:</b> <br>\n      * groups:read <br>\n",
+        "operationId": "getGroupById",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of group to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupEntity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Group not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "Update a existing group",
+        "description": "This API update existing group. <br>\n  <b>Permission required:</b> <br>\n      * groups:update <br>\n",
+        "operationId": "updateGroup",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of group",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/GroupUpdate"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "Deletes a group",
+        "description": "This API delete group by id. <br>\n  <b>Permission required:</b> <br>\n      * groups:delete <br>\n",
+        "operationId": "deleteGroup",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group id to delete",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Group not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "Patch a existing group",
+        "description": "This API patch existing group roles and users. <br>\n  <b>Permission required:</b> <br>\n      * groups:update <br>\n",
+        "operationId": "patchGroup",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of group",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/GroupPatch"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/resources:": {
+      "get": {
+        "tags": [
+          "resources"
+        ],
+        "summary": "Get all resources.",
+        "description": "This API fetch all resources. <br>\n  <b>Permission required:</b> <br>\n      * resources:read_all <br>\n",
+        "operationId": "getResources",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Resource"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "resources"
+        ],
+        "summary": "Add a new resource",
+        "description": "This API create new resource. <br>\n  <b>Permission required:</b> <br>\n      * resources:create <br>\n",
+        "operationId": "addResource",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Resource"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/resources/{id}:": {
+      "get": {
+        "tags": [
+          "resources"
+        ],
+        "summary": "Find resource by ID",
+        "description": "This API fetch resource by id. <br>\n  <b>Permission required:</b> <br>\n      * resources:read <br>\n",
+        "operationId": "getResourceById",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of resource to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceEntity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "resources"
+        ],
+        "summary": "Deletes a resource",
+        "description": "This API delete resource by id. <br>\n  <b>Permission required:</b> <br>\n      * resources:delete <br>\n",
+        "operationId": "deleteResource",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group id to resources",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "resources"
+        ],
+        "summary": "Patch a existing resource",
+        "description": "This API patch existing resource actions. <br>\n  <b>Permission required:</b> <br>\n      * resources:update <br>\n",
+        "operationId": "patchResource",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of resource",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ResourcePatch"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/policies:": {
+      "get": {
+        "tags": [
+          "policies"
+        ],
+        "summary": "Get all policies.",
+        "description": "This API fetch all policies. <br>\n  <b>Permission required:</b> <br>\n      * policies:read_all <br>\n",
+        "operationId": "getPolicies",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Policy"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "policies"
+        ],
+        "summary": "Add a new policy",
+        "description": "This API create new policy. <br>\n  <b>Permission required:</b> <br>\n      * policies:create <br>\n",
+        "operationId": "addPolicy",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Policy"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/policies/{id}:": {
+      "get": {
+        "tags": [
+          "policies"
+        ],
+        "summary": "Find policy by ID",
+        "description": "This API fetch policy by id. <br>\n  <b>Permission required:</b> <br>\n      * policies:read <br>\n",
+        "operationId": "getPolicyById",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of policy to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolicyEntity"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Policy not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "policies"
+        ],
+        "summary": "Update a existing policy",
+        "description": "This API update existing policy. <br>\n  <b>Permission required:</b> <br>\n      * policies:update <br>\n",
+        "operationId": "patchPolicy",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of policy",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PolicyUpdate"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "policies"
+        ],
+        "summary": "Deletes a policy",
+        "description": "This API delete policy by id. <br>\n  <b>Permission required:</b> <br>\n      * policies:delete <br>\n",
+        "operationId": "deletePolicy",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Policy id to policies",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Policy not found"
+          }
+        }
+      }
+    },
+    "/o/{org_id}/check": {
+      "post": {
+        "tags": [
+          "check"
+        ],
+        "summary": "Check permission",
+        "description": "This API check permission. <br>\n",
+        "operationId": "check",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "description": "ID of organization",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Check"
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OrganizationCreationRequestBody": {
+        "required": [
+          "displayName",
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "example": "cronuseo"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "cronuseo"
+          }
+        }
+      },
+      "UserCreationRequestBody": {
+        "required": [
+          "identifier",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "shashimalcse"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "shashimalcse"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "policies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "user_properties": {
+            "$ref": "#/components/schemas/UserCreationRequestBody_user_properties"
+          }
+        }
+      },
+      "UserUpdateRequestBody": {
+        "type": "object",
+        "properties": {
+          "user_properties": {
+            "$ref": "#/components/schemas/UserCreationRequestBody_user_properties"
+          }
+        }
+      },
+      "UserPatchRequestBody": {
+        "type": "object",
+        "properties": {
+          "added_groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "added_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "added_policies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_policies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          }
+        }
+      },
+      "RoleCreationRequestBody": {
+        "required": [
+          "display_name",
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "example": "admin"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "admin"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          }
+        }
+      },
+      "RolePatchRequestBody": {
+        "type": "object",
+        "properties": {
+          "added_groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "added_users": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "added_permissions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_users": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_permissions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          }
+        }
+      },
+      "GroupCreationRequestBody": {
+        "required": [
+          "display_name",
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "example": "manager"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "manager"
+          },
+          "group_properties": {
+            "$ref": "#/components/schemas/GroupCreationRequestBody_group_properties"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "policies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          }
+        }
+      },
+      "GroupUpdateRequestBody": {
+        "type": "object",
+        "properties": {
+          "group_properties": {
+            "$ref": "#/components/schemas/GroupCreationRequestBody_group_properties"
+          }
+        }
+      },
+      "GroupPatchRequestBody": {
+        "type": "object",
+        "properties": {
+          "added_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "added_users": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "added_policies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_users": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          },
+          "removed_policies": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          }
+        }
+      },
+      "ResourceCreationRequestBody": {
+        "required": [
+          "display_name",
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "example": "doc"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "doc"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Action"
+            }
+          }
+        }
+      },
+      "ResourcePatchRequestBody": {
+        "type": "object",
+        "properties": {
+          "added_actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Action"
+            }
+          },
+          "removed_actions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+            }
+          }
+        }
+      },
+      "PolicyCreationRequestBody": {
+        "required": [
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "example": "email_equal"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "email_equal"
+          },
+          "version": {
+            "type": "string",
+            "example": "1.0"
+          },
+          "policy": {
+            "type": "string",
+            "example": "#[\n  [\n    {\n      \"attribute\": {\n        \"name\": \"authn_ctx.email\",\n        \"type\": \"array\"\n      },\n      \"operator\": \"equal\",\n      \"value\": [\n        \"shashimal@gmail.com\"\n      ]\n    }\n  ]\n]#     \n"
+          }
+        }
+      },
+      "PolicyUpdateRequestBody": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "example": "1.0"
+          },
+          "policy": {
+            "type": "string",
+            "example": "#[\n  [\n    {\n      \"attribute\": {\n        \"name\": \"authn_ctx.email\",\n        \"type\": \"array\"\n      },\n      \"operator\": \"equal\",\n      \"value\": [\n        \"shashimal@gmail.com\"\n      ]\n    }\n  ]\n]#               \n"
+          }
+        }
+      },
+      "CheckRequestBody": {
+        "required": [
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "example": "shashimalcse"
+          },
+          "resource": {
+            "type": "string",
+            "example": "doc"
+          },
+          "action": {
+            "type": "string",
+            "example": "read"
+          },
+          "properties": {
+            "type": "string",
+            "example": "#{\n\"authn_ctx\": {\n    \"scp\": [\n        \"openid\",\n        \"profile\",\n        \"email\",\n        \"sample_service:read\"\n    ],\n    \"sub\": \"joe\",\n    \"idp_id\": \"4abc18656e1d79589b6a6ba8afcb350a02623c6f5d39f43c3bcc47b697e92538\",\n    \"groups\": [\n        \"admins\",\n        \"users\"\n    ],\n    \"email\": \"testjoe@cloudentity.com\",\n    \"email_verified\": true,\n    \"phone_number\": \"+1-555-6616-899\",\n    \"phone_number_verified\": \"+1-555-6616-899\",\n    \"address\": {\n        \"formatted\": \"\",\n        \"street_address\": \"1463  Perry Street\",\n        \"locality\": \"Dayton\",\n        \"region\": \"Kentucky\",\n        \"country\": \"US\",\n        \"postal_code\": \"41074\"\n    },\n    \"name\": \"Joe Test\",\n    \"given_name\": \"Joe\",\n    \"middle_name\": \"\",\n    \"family_name\": \"Test\",\n    \"nickname\": \"joe\",\n    \"preferred_username\": \"testjoe\",\n    \"profile\": \"\",\n    \"picture\": \"\",\n    \"website\": \"\",\n    \"gender\": \"male\",\n    \"birthdate\": \"1960-10-09\",\n    \"zoneinfo\": \"\",\n    \"locale\": \"\",\n    \"updated_at\": \"\"\n},\n\"contexts\": {\n    \"scopes\": {\n        \"users.*\": [\n            {\n                \"params\": [\n                    \"joe\"\n                ],\n                \"requested_name\": \"users.joe\"\n            }\n        ]\n    },\n    \"workspaceMetadata\": {\n        \"sap_id\": \"123456789\"\n    }\n},\n\"request\": {\n    \"headers\": {\n        \"Content-Type\": [\n            \"application/json\"\n        ],\n        \"X-Custom-Header\": [\n            \"BOT_DETECTED\"\n        ]\n    },\n    \"method\": \"POST\",\n    \"path_params\": {\n        \"users\": \"admins\"\n    },\n    \"query_params\": {\n        \"limit\": [\n            \"1000\"\n        ],\n        \"offset\": [\n            \"100\"\n        ]\n    },\n    \"path\": \"/doawesomethings\"\n  }\n}#                 \n"
+          }
+        }
+      },
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "cronuseo"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "cronuseo"
+          }
+        }
+      },
+      "OrganizationEntity": {
+        "type": "object",
+        "properties": {
+          "api_key": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "cronuseo"
+          },
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "cronuseo"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "username": {
+            "type": "string",
+            "example": "shashimalcse"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "shashimalcse"
+          }
+        }
+      },
+      "UserEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "username": {
+            "type": "string",
+            "example": "shashimalcse"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "shashimalcse"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignedGroup"
+            }
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignedRole"
+            }
+          },
+          "policies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Policy"
+            }
+          },
+          "user_properties": {
+            "$ref": "#/components/schemas/UserCreationRequestBody_user_properties"
+          }
+        }
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "admin"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "admin"
+          }
+        }
+      },
+      "AssignedRole": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "admin"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "admin"
+          }
+        }
+      },
+      "RoleEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "admin"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "admin"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignedGroup"
+            }
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceEntity"
+            }
+          }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "manager"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "manager"
+          }
+        }
+      },
+      "AssignedGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "manager"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "manager"
+          }
+        }
+      },
+      "GroupEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "admin"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "admin"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignedRole"
+            }
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "policies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Policy"
+            }
+          }
+        }
+      },
+      "Resource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "doc"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "doc"
+          }
+        }
+      },
+      "ResourceEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "admin"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "admin"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActionEntity"
+            }
+          }
+        }
+      },
+      "Action": {
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "example": "read"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "read"
+          }
+        }
+      },
+      "ActionEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "read"
+          },
+          "identifier": {
+            "type": "string",
+            "example": "read"
+          }
+        }
+      },
+      "Policy": {
+        "required": [
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "example": "email_equal"
+          },
+          "active_version": {
+            "type": "string",
+            "example": "1.0"
+          },
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          }
+        }
+      },
+      "PolicyEntity": {
+        "required": [
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "example": "email_equal"
+          },
+          "active_version": {
+            "type": "string",
+            "example": "1.0"
+          },
+          "id": {
+            "type": "string",
+            "example": "aHR0cDovL3dzbzIub3JnL2NsYWltcy91c2VybmFtZQ"
+          },
+          "policy": {
+            "type": "string",
+            "example": "#[\n  [\n    {\n      \"attribute\": {\n        \"name\": \"authn_ctx.email\",\n        \"type\": \"array\"\n      },\n      \"operator\": \"equal\",\n      \"value\": [\n        \"shashimal@gmail.com\"\n      ]\n    }\n  ]\n]#             \n"
+          }
+        }
+      },
+      "UserCreationRequestBody_user_properties": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "date",
+            "example": "1990-01-01"
+          }
+        }
+      },
+      "GroupCreationRequestBody_group_properties": {
+        "type": "object",
+        "properties": {
+          "max_limit": {
+            "type": "integer",
+            "example": 1000
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Organization": {
+        "description": "Organization",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OrganizationCreationRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "User": {
+        "description": "User createion request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UserCreationRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "UserUpdate": {
+        "description": "User update request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UserUpdateRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "UserPatch": {
+        "description": "User patch request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UserPatchRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "Role": {
+        "description": "Role createion request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RoleCreationRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "RolePatch": {
+        "description": "Role patch request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RolePatchRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "Group": {
+        "description": "Group creation request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GroupCreationRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "GroupUpdate": {
+        "description": "Group patch request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GroupUpdateRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "GroupPatch": {
+        "description": "Group patch request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GroupPatchRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "Resource": {
+        "description": "Resource creation request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ResourceCreationRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "ResourcePatch": {
+        "description": "Resource patch request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ResourcePatchRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "Policy": {
+        "description": "Resource creation request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PolicyCreationRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "PolicyUpdate": {
+        "description": "Resource creation request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PolicyUpdateRequestBody"
+            }
+          }
+        },
+        "required": true
+      },
+      "Check": {
+        "description": "Resource creation request body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CheckRequestBody"
+            }
+          }
+        },
+        "required": true
+      }
+    }
+  }
+}

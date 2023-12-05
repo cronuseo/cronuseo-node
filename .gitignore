@@ -1,0 +1,18 @@
+.idea/*
+.nyc_output
+build
+node_modules
+test
+src/**/*.js
+coverage
+*.log
+package-lock.json
+# openapi
+src/openapi/.openapi-generator
+src/openapi/.gitignore
+src/openapi/.npmignore
+src/openapi/.openapi-generator-ignore
+src/openapi/git_push.sh
+src/openapi/**/*.js
+.local-pack
+package-lock.json
