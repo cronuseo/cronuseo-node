@@ -21,16 +21,17 @@ export class Check implements ICheck {
   constructor(private config: ICronuseoConfig) {
     if (config.axiosInstance) {
       this.client = config.axiosInstance;
+      this.client.defaults.baseURL = `${this.config.checkUrl}/`;
     } else {
         this.client = axios.create({
-            baseURL: this.config.checkUrl
+            baseURL: `${this.config.checkUrl}/`
           });
     }
   }
 
   check(checkRequest: ICheckRequest): Promise<boolean> {
     
-    return this.client.post<ICheckResponse>('allowed', checkRequest, {
+    return this.client.post<ICheckResponse>('api/v1/o/super/check', checkRequest, {
         headers: {
           "API_KEY": `${this.config.apiKey}`,
         },
