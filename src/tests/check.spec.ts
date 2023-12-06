@@ -16,7 +16,7 @@ describe('Check against real server', () => {
 
   it('should return true for a valid request', async () => {
     const checkRequest: ICheckRequest = {
-      user: 'realUser',
+      identifier: 'realUser',
       resource: 'realResource',
       action: 'realAction'
     };

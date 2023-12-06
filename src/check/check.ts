@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import { ICronuseoConfig } from "../config";
 
 export interface ICheckRequest {
-  user: string;
+  identifier: string;
   resource: string;
   action: string;
 }
